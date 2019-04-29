@@ -1,0 +1,82 @@
+import {Component, OnInit} from '@angular/core';
+import {User} from "../../models/User";
+
+@Component({
+    selector: 'app-users',
+    templateUrl: './users.component.html',
+    styleUrls: ['./users.component.css']
+})
+export class UsersComponent implements OnInit {
+
+    users: User[];
+    showExtended: boolean = true;
+    loaded: boolean = false;
+
+    constructor() {
+    }
+
+    ngOnInit() {
+        // console.log('init...')
+        setTimeout(() => {
+            this.users = [
+                {
+                    firstName: 'Elson',
+                    lastName: 'Costa',
+                    age: 25,
+                    address: {
+                        street: 'Rua josé',
+                        city: 'Vitória',
+                        state: 'PE'
+                    }
+                },
+                {
+                    firstName: 'Danyllo',
+                    lastName: 'Ferreira',
+                    age: 33,
+                    address: {
+                        street: 'rua olinda',
+                        city: 'Olinda',
+                        state: 'PE'
+                    }
+                },
+                {
+                    firstName: 'José',
+                    lastName: 'Barbosa',
+                    age: 42,
+                    address: {
+                        street: 'Rua marcolino, 223',
+                        city: 'Recife',
+                        state: 'PE'
+                    }
+                }
+            ];
+            this.loaded = true;
+
+            this.addUser({
+                firstName: 'Marcos',
+                lastName: 'Antônio',
+                age: 29,
+                address: {
+                    street: 'Rua são paulo',
+                    city: 'São paulo',
+                    state: 'SP'
+                }
+            });
+
+            this.addUser({
+                firstName: 'Gustavo',
+                lastName: 'Alexandre',
+                // age: 22,
+                // address: {
+                //     street: 'Alexandria',
+                //     city: 'Rio de janeiro',
+                //     state: 'RJ'
+                // }
+            });
+        }, 2000);
+    }
+
+    addUser(user: User) {
+        this.users.push(user);
+    }
+}
