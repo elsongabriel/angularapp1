@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ReqUser} from "../../models/ReqUser";
 
 @Component({
@@ -21,6 +21,7 @@ export class ReqUserComponent implements OnInit {
     countU: number = 1;
     currentStyles = {};
     showUserForm: boolean = false;
+    @ViewChild('userForm') form: any;
     syncAPI: boolean = false;
 
     constructor() {
@@ -40,35 +41,55 @@ export class ReqUserComponent implements OnInit {
         }
     }
 
-    addSubmitUser() {
-        this.user.image = `http://lorempixel.com/400/400/people/${this.countU}`;
-        this.user.isActive = true;
-        this.user.registered = new Date();
-        if (this.syncUser()) {
-            this.clearFields();
-            this.countU++;
+    /* Old */
+    // addSubmitUser() {
+    //     this.user.image = `http://lorempixel.com/400/400/people/${this.countU}`;
+    //     this.user.isActive = true;
+    //     this.user.registered = new Date();
+    //     if (this.syncUser()) {
+    //         this.clearFields();
+    //         this.countU++;
+    //     }
+    // }
+
+    // syncUser() {
+    //     if (!this.syncAPI) {
+    //         this.users.unshift(this.value);
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
+    // clearFields() {
+    //     this.user = {
+    //         name: '',
+    //         email: '',
+    //         password: '',
+    //         image: null,
+    //         registered: null
+    //     };
+    // }
+
+    onSubmit({value, valid}: { value: ReqUser, valid: boolean }) {
+        if (!valid) {
+            console.log('form not valid');
+        } else {
+            value.image = `http://lorempixel.com/400/400/people/${this.countU}`;
+            value.isActive = true;
+            value.registered = new Date();
+            value.hide = true;
+            if (this.syncUser(value)) {
+                this.form.reset();
+                this.countU++;
+            }
         }
     }
 
-    syncUser() {
+    syncUser(obj) {
         if (!this.syncAPI) {
-            this.users.unshift(this.user);
+            this.users.unshift(obj);
             return true;
         }
         return false;
-    }
-
-    clearFields() {
-        this.user = {
-            name: '',
-            email: '',
-            password: '',
-            image: null,
-            registered: null
-        };
-    }
-
-    onSubmit(e) {
-        e.preventDefault();
     }
 }
