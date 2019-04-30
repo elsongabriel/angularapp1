@@ -14,10 +14,16 @@
                 <!--<img *ngIf="user.image" class="img-fluid" bind-src="user.image" alt="">-->
             </div>
             <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8">
-                <h3 [ngStyle]="currentStyles"><span
-                        [textContent]="user.firstName | uppercase"></span> {{user.lastName | lowercase}}</h3>
+                <h3 [ngStyle]="currentStyles">
+                    <span [textContent]="user.firstName | uppercase"></span> {{user.lastName | lowercase}}
+                    <small *ngIf="checkHideBtn(user)">
+                        <button (click)="user.hide = !user.hide" class="btn btn-primary btn-sm"><i
+                                [ngClass]="'fa fa-'+ (user.hide ? 'plus':'minus')"></i>
+                        </button>
+                    </small>
+                </h3>
                 <!--<h3>{{user.firstName}} {{user.lastName}}</h3>-->
-                <ul class="list-group" *ngIf="showExtended && user.age && user.address">
+                <ul class="list-group" *ngIf="!user.hide && checkHideBtn(user)">
                     <li class="list-group-item">Age: {{user.age}}</li>
                     <li class="list-group-item">
                         Address: {{user.address.street}}, {{user.address.city}} - {{user.address.state}}

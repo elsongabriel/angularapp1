@@ -36,6 +36,7 @@ export class UsersComponent implements OnInit {
                     isActive: true,
                     balance: 62,
                     registered: new Date('05/14/2018 14:05:39'),
+                    hide: true,
                 },
                 {
                     firstName: 'Danyllo',
@@ -50,6 +51,7 @@ export class UsersComponent implements OnInit {
                     isActive: false,
                     balance: 90,
                     registered: new Date('02/10/2019 09:32:21'),
+                    hide: true,
                 },
                 {
                     firstName: 'José',
@@ -64,6 +66,7 @@ export class UsersComponent implements OnInit {
                     isActive: true,
                     balance: 110,
                     registered: new Date('04/20/2019 11:42:34'),
+                    hide: false,
                 }
             ];
             this.loaded = true;
@@ -80,6 +83,7 @@ export class UsersComponent implements OnInit {
                 isActive: true,
                 balance: 89,
                 registered: new Date('03/30/2019 10:01:02'),
+                hide: true,
             });
 
             this.addUser({
@@ -94,6 +98,7 @@ export class UsersComponent implements OnInit {
                 isActive: false,
                 balance: 78,
                 registered: new Date('04/30/2019 09:13:21'),
+                hide: true,
             });
 
             this.setCurrentClasses();
@@ -126,7 +131,12 @@ export class UsersComponent implements OnInit {
             firstName: 'Teste',
             lastName: `${this.countU}`,
             image: `http://lorempixel.com/400/400/people/${this.countU + 3}`,
-            isActive: true
+            isActive: true,
+            hide: true,
         })
+    }
+
+    checkHideBtn(user) {
+        return (user.age && user.address);
     }
 }
