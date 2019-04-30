@@ -14,6 +14,7 @@ export class UsersComponent implements OnInit {
     enableAdd: boolean = true;
     currentClasses = {};
     currentStyles = {};
+    countU: number = 0;
 
     constructor() {
     }
@@ -116,5 +117,16 @@ export class UsersComponent implements OnInit {
             'padding-top': this.showExtended ? '5px' : '15px',
             'font-size': this.showExtended ? '' : '20px',
         }
+    }
+
+    btnAddUser(e) {
+        this.countU++;
+        //console.log(e);
+        this.addUser({
+            firstName: 'Teste',
+            lastName: `${this.countU}`,
+            image: `http://lorempixel.com/400/400/people/${this.countU + 3}`,
+            isActive: true
+        })
     }
 }
