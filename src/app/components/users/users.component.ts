@@ -9,7 +9,7 @@ import {User} from "../../models/User";
 export class UsersComponent implements OnInit {
 
     users: User[];
-    showExtended: boolean = false;
+    showExtended: boolean = true;
     loaded: boolean = false;
     enableAdd: boolean = true;
     currentClasses = {};
@@ -33,6 +33,8 @@ export class UsersComponent implements OnInit {
                     },
                     image: 'http://lorempixel.com/400/400/people/3',
                     isActive: true,
+                    balance: 62,
+                    registered: new Date('05/14/2018 14:05:39'),
                 },
                 {
                     firstName: 'Danyllo',
@@ -45,6 +47,8 @@ export class UsersComponent implements OnInit {
                     },
                     image: 'http://lorempixel.com/400/400/people/2',
                     isActive: false,
+                    balance: 90,
+                    registered: new Date('02/10/2019 09:32:21'),
                 },
                 {
                     firstName: 'José',
@@ -57,6 +61,8 @@ export class UsersComponent implements OnInit {
                     },
                     image: 'http://lorempixel.com/400/400/people/1',
                     isActive: true,
+                    balance: 110,
+                    registered: new Date('04/20/2019 11:42:34'),
                 }
             ];
             this.loaded = true;
@@ -71,6 +77,8 @@ export class UsersComponent implements OnInit {
                     state: 'SP'
                 },
                 isActive: true,
+                balance: 89,
+                registered: new Date('03/30/2019 10:01:02'),
             });
 
             this.addUser({
@@ -83,6 +91,8 @@ export class UsersComponent implements OnInit {
                 //     state: 'RJ'
                 // }
                 isActive: false,
+                balance: 78,
+                registered: new Date('04/30/2019 09:13:21'),
             });
 
             this.setCurrentClasses();
@@ -103,7 +113,7 @@ export class UsersComponent implements OnInit {
 
     setCurrentStyles() {
         this.currentStyles = {
-            'padding-top': this.showExtended ? '0' : '15px',
+            'padding-top': this.showExtended ? '5px' : '15px',
             'font-size': this.showExtended ? '' : '20px',
         }
     }
