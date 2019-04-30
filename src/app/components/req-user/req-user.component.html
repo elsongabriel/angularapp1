@@ -1,0 +1,51 @@
+<button class="btn btn-dark mb-3" (click)="showUserForm = !showUserForm">Adicionar Usuário</button>
+<div *ngIf="showUserForm" class="card card-body mb-3">
+    <form (submit)="onSubmit($event)">
+        <h5>Dados do Usuário</h5>
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="user.name">
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="text" class="form-control" id="email" name="email" [(ngModel)]="user.email">
+        </div>
+        <div class="form-group">
+            <label for="password">Senha</label>
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password">
+        </div>
+
+        <button (click)="addSubmitUser()" [disabled]="user.name == '' || user.email == '' || user.password == ''"
+                class="btn btn-block btn-success mb-3 mt-3">
+            <span>Adicionar</span>
+        </button>
+    </form>
+</div>
+
+<h4 *ngIf="!loaded"><i class="fa fa-spin"></i>Carregando usuários...</h4>
+<h4 *ngIf="users?.length == 0">Nenhum usuário encontrado!</h4>
+
+<h4 *ngIf="loaded && users?.length > 0">Usuários</h4>
+<ul class="list-unstyled" *ngIf="loaded && users?.length > 0">
+    <li class="card card-body mb-2" *ngFor="let user of users" [class.bg-light]="user.isActive"
+        [style.border-color]="user.isActive ? 'green': 'red'">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-sm-4 col-xs-4 col-md-4 col-lg-4">
+                    <img *ngIf="user.image" class="img-fluid" [src]="user.image" alt="{{user.name}}">
+                </div>
+                <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8">
+                    <h4 [ngStyle]="currentStyles">
+                        {{user.name}}
+                        <button (click)="user.hide = !user.hide" class="btn btn-primary btn-sm"><i
+                                [ngClass]="'fa fa-'+ (user.hide ? 'plus':'minus')"></i></button>
+                    </h4>
+                    <ul class="list-group" *ngIf="!user.hide">
+                        <li class="list-group-item">E-mail: {{user.email}}</li>
+                        <li class="list-group-item">Entrou em: {{user.registered | date:"dd/MM/yyyy"}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
