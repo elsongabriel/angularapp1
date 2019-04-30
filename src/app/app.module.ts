@@ -5,16 +5,20 @@ import {AppComponent} from './app.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {UserComponent} from './components/user/user.component';
 import {UsersComponent} from './components/users/users.component';
+import {FormsModule} from "@angular/forms";
+import {ReqUserComponent} from './components/req-user/req-user.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         UserComponent,
         UsersComponent,
-        NavbarComponent
+        NavbarComponent,
+        ReqUserComponent
     ],
     imports: [
-        BrowserModule
+        BrowserModule,
+        FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

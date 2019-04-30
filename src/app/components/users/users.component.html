@@ -1,8 +1,47 @@
 <h2>Usuários</h2>
 
-<button [disabled]="!enableAdd" class="btn btn-block mb-3 mt-3" [ngClass]="currentClasses" (click)="btnAddUser($event)">
+<button class="btn btn-dark mb-3" (click)="showUserForm= !showUserForm">Add User</button>
+<div *ngIf="showUserForm" class="card card-body mb-3">
+    <form (submit)="onSubmit($event)">
+        <h5>User data</h5>
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="user.firstName">
+            <!--<input (keydown)="fireEvent($event)" type="text" class="form-control" id="firstName" name="firstName">-->
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="user.lastName">
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age" name="age" [(ngModel)]="user.age">
+        </div>
+
+        <hr>
+        <h5>Address</h5>
+        <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" class="form-control" id="street" name="street" [(ngModel)]="user.address.street">
+        </div>
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" class="form-control" id="city" name="city" [(ngModel)]="user.address.city">
+        </div>
+        <div class="form-group">
+            <label for="state">State</label>
+            <input type="text" class="form-control" id="state" name="state" [(ngModel)]="user.address.state">
+        </div>
+
+        <button (click)="addSubmitUser()" [disabled]="user.firstName == '' || user.lastName == ''"
+                class="btn btn-block btn-success mb-3 mt-3">
+            <span>Add</span>
+        </button>
+    </form>
+</div>
+<!--<button [disabled]="!enableAdd" class="btn btn-block mb-3 mt-3" [ngClass]="currentClasses" (click)="btnAddUser($event)">
     <span>Add</span>
-</button>
+</button>-->
 <!--<ul *ngIf="loaded && users.length > 0; else noUsers">-->
 <ul class="list-unstyled" *ngIf="loaded && users?.length > 0">
     <li class="card card-body mb-2" *ngFor="let user of users" [class.bg-light]="user.isActive"
@@ -14,14 +53,14 @@
                 <!--<img *ngIf="user.image" class="img-fluid" bind-src="user.image" alt="">-->
             </div>
             <div class="col-sm-8 col-xs-8 col-md-8 col-lg-8">
-                <h3 [ngStyle]="currentStyles">
+                <h4 [ngStyle]="currentStyles">
                     <span [textContent]="user.firstName | uppercase"></span> {{user.lastName | lowercase}}
                     <small *ngIf="checkHideBtn(user)">
                         <button (click)="user.hide = !user.hide" class="btn btn-primary btn-sm"><i
                                 [ngClass]="'fa fa-'+ (user.hide ? 'plus':'minus')"></i>
                         </button>
                     </small>
-                </h3>
+                </h4>
                 <!--<h3>{{user.firstName}} {{user.lastName}}</h3>-->
                 <ul class="list-group" *ngIf="!user.hide && checkHideBtn(user)">
                     <li class="list-group-item">Age: {{user.age}}</li>
