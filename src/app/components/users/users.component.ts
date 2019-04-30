@@ -12,6 +12,7 @@ export class UsersComponent implements OnInit {
     showExtended: boolean = true;
     loaded: boolean = false;
     enableAdd: boolean = true;
+    currentClasses = {};
 
     constructor() {
     }
@@ -29,7 +30,8 @@ export class UsersComponent implements OnInit {
                         city: 'Vitória',
                         state: 'PE'
                     },
-                    image: 'http://lorempixel.com/600/600/people/3'
+                    image: 'http://lorempixel.com/400/400/people/3',
+                    isActive: true,
                 },
                 {
                     firstName: 'Danyllo',
@@ -40,7 +42,8 @@ export class UsersComponent implements OnInit {
                         city: 'Olinda',
                         state: 'PE'
                     },
-                    image: 'http://lorempixel.com/600/600/people/2'
+                    image: 'http://lorempixel.com/400/400/people/2',
+                    isActive: false,
                 },
                 {
                     firstName: 'José',
@@ -51,7 +54,8 @@ export class UsersComponent implements OnInit {
                         city: 'Recife',
                         state: 'PE'
                     },
-                    image: 'http://lorempixel.com/600/600/people/1'
+                    image: 'http://lorempixel.com/400/400/people/1',
+                    isActive: true,
                 }
             ];
             this.loaded = true;
@@ -64,7 +68,8 @@ export class UsersComponent implements OnInit {
                     street: 'Rua são paulo',
                     city: 'São paulo',
                     state: 'SP'
-                }
+                },
+                isActive: true,
             });
 
             this.addUser({
@@ -76,11 +81,21 @@ export class UsersComponent implements OnInit {
                 //     city: 'Rio de janeiro',
                 //     state: 'RJ'
                 // }
+                isActive: false,
             });
+
+            this.setCurrentClasses();
         }, 2000);
     }
 
     addUser(user: User) {
         this.users.push(user);
+    }
+
+    setCurrentClasses() {
+        this.currentClasses = {
+            'btn-success': this.enableAdd,
+            'big-text': this.showExtended
+        }
     }
 }
