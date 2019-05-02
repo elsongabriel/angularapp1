@@ -23,15 +23,24 @@ export class ReqUserComponent implements OnInit {
     currentStyles = {};
     showUserForm: boolean = false;
     @ViewChild('userForm') form: any;
+    data: any;
 
     constructor(private dataService: DataService) {
     }
 
     ngOnInit() {
+        this.setCurrentStyles();
+
+        // this.data = this.dataService.getData().subscribe(data => {
+        //     console.log(data);
+        // });
+
         setTimeout(() => {
-            this.users = this.dataService.getUsers();
-            this.loaded = true;
-            this.setCurrentStyles();
+            // this.users = this.dataService.getUsers();
+            this.dataService.getUsersObs().subscribe(users => {
+                this.users = users;
+                this.loaded = true;
+            });
         }, 2000);
     }
 
