@@ -7,6 +7,7 @@ import {UserComponent} from './components/user/user.component';
 import {UsersComponent} from './components/users/users.component';
 import {FormsModule} from "@angular/forms";
 import {ReqUserComponent} from './components/req-user/req-user.component';
+import {DataService} from './services/data.service';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,7 @@ import {ReqUserComponent} from './components/req-user/req-user.component';
         BrowserModule,
         FormsModule
     ],
-    providers: [],
+    providers: [DataService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

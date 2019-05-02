@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ReqUser} from "../../models/ReqUser";
+import {DataService} from "../../services/data.service";
 
 @Component({
     selector: 'app-req-user',
@@ -22,14 +23,13 @@ export class ReqUserComponent implements OnInit {
     currentStyles = {};
     showUserForm: boolean = false;
     @ViewChild('userForm') form: any;
-    syncAPI: boolean = false;
 
-    constructor() {
+    constructor(private dataService: DataService) {
     }
 
     ngOnInit() {
         setTimeout(() => {
-            this.users = [];
+            this.users = this.dataService.getUsers();
             this.loaded = true;
             this.setCurrentStyles();
         }, 2000);
@@ -78,18 +78,13 @@ export class ReqUserComponent implements OnInit {
             value.isActive = true;
             value.registered = new Date();
             value.hide = true;
-            if (this.syncUser(value)) {
-                this.form.reset();
-                this.countU++;
-            }
+            this.dataService.setUser(value);
+            this.form.reset();
+            this.countU++;
+            // if (this.syncUser(value)) {
+            //     this.form.reset();
+            //     this.countU++;
+            // }
         }
-    }
-
-    syncUser(obj) {
-        if (!this.syncAPI) {
-            this.users.unshift(obj);
-            return true;
-        }
-        return false;
     }
 }
