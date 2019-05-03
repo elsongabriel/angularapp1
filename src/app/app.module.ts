@@ -7,7 +7,9 @@ import {UserComponent} from './components/user/user.component';
 import {UsersComponent} from './components/users/users.component';
 import {FormsModule} from "@angular/forms";
 import {ReqUserComponent} from './components/req-user/req-user.component';
-import {DataService} from './services/data.service';
+// import {DataService} from './services/data.service';
+import {ReqUserService} from './services/req-user.service';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -19,9 +21,10 @@ import {DataService} from './services/data.service';
     ],
     imports: [
         BrowserModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule
     ],
-    providers: [DataService],
+    providers: [ReqUserService /*DataService*/],
     bootstrap: [AppComponent]
 })
 export class AppModule {

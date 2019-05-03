@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ReqUser} from "../../models/ReqUser";
-import {DataService} from "../../services/data.service";
+import {ReqUserService} from "../../services/req-user.service";
+
+// import {DataService} from "../../services/data.service";
 
 @Component({
     selector: 'app-req-user',
@@ -19,13 +21,11 @@ export class ReqUserComponent implements OnInit {
 
     users: ReqUser[];
     loaded: boolean = false;
-    countU: number = 1;
     currentStyles = {};
     showUserForm: boolean = false;
     @ViewChild('userForm') form: any;
-    data: any;
 
-    constructor(private dataService: DataService) {
+    constructor(private userService: ReqUserService) {
     }
 
     ngOnInit() {
@@ -35,19 +35,36 @@ export class ReqUserComponent implements OnInit {
         //     console.log(data);
         // });
 
-        setTimeout(() => {
-            // this.users = this.dataService.getUsers();
-            this.dataService.getUsersObs().subscribe(users => {
-                this.users = users;
-                this.loaded = true;
-            });
-        }, 2000);
+        // setTimeout(() => {
+        // this.users = this.dataService.getUsers();
+        this.loadUsers();
+        // }, 2000);
     }
 
     setCurrentStyles() {
         this.currentStyles = {
             'padding-top': '5px'
         }
+    }
+
+    loadUsers() {
+        this.userService.getOauthToken().subscribe(oauth => {
+            this.userService.putToken(oauth['access_token']);
+            this.userService.getUsers().subscribe(response => {
+                this.transformUsers(response['data']);
+            });
+        });
+    }
+
+    transformUsers(users) {
+        for (let user of users) {
+            user.registered = user.created_at;
+            user.image = `http://lorempixel.com/400/400/people/${user.id}`;
+            user.isActive = true;
+            user.hide = false;
+        }
+        this.users = users;
+        this.loaded = true;
     }
 
     /* Old */
@@ -83,13 +100,15 @@ export class ReqUserComponent implements OnInit {
         if (!valid) {
             console.log('form not valid');
         } else {
-            value.image = `http://lorempixel.com/400/400/people/${this.countU}`;
-            value.isActive = true;
-            value.registered = new Date();
-            value.hide = true;
-            this.dataService.setUser(value);
-            this.form.reset();
-            this.countU++;
+            value.cpf = '';
+            value.image = `http://lorempixel.com/400/400/people/${this.users.length + 1}`;
+            value.user_type_id = 2;
+            this.userService.setUser(value as ReqUser).subscribe(response => {
+                let user = response['data'];
+                alert(`Usuário ${user.name} criado com sucesso!`);
+                this.form.reset();
+                this.loadUsers();
+            });
             // if (this.syncUser(value)) {
             //     this.form.reset();
             //     this.countU++;
