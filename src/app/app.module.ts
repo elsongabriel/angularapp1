@@ -10,6 +10,7 @@ import {ReqUserComponent} from './components/req-user/req-user.component';
 // import {DataService} from './services/data.service';
 import {ReqUserService} from './services/req-user.service';
 import {HttpClientModule} from "@angular/common/http";
+import {UserFormComponent} from './components/user-form/user-form.component';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import {HttpClientModule} from "@angular/common/http";
         UserComponent,
         UsersComponent,
         NavbarComponent,
-        ReqUserComponent
+        ReqUserComponent,
+        UserFormComponent
     ],
     imports: [
         BrowserModule,

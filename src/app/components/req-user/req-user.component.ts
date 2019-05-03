@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ReqUser} from "../../models/ReqUser";
 import {ReqUserService} from "../../services/req-user.service";
 
@@ -11,19 +11,9 @@ import {ReqUserService} from "../../services/req-user.service";
 })
 export class ReqUserComponent implements OnInit {
 
-    user: ReqUser = {
-        name: '',
-        email: '',
-        password: '',
-        image: null,
-        registered: null
-    };
-
     users: ReqUser[];
     loaded: boolean = false;
     currentStyles = {};
-    showUserForm: boolean = false;
-    @ViewChild('userForm') form: any;
 
     constructor(private userService: ReqUserService) {
     }
@@ -39,6 +29,10 @@ export class ReqUserComponent implements OnInit {
         // this.users = this.dataService.getUsers();
         this.loadUsers();
         // }, 2000);
+    }
+
+    onNewUser() {
+        this.loadUsers();
     }
 
     setCurrentStyles() {
@@ -96,23 +90,4 @@ export class ReqUserComponent implements OnInit {
     //     };
     // }
 
-    onSubmit({value, valid}: { value: ReqUser, valid: boolean }) {
-        if (!valid) {
-            console.log('form not valid');
-        } else {
-            value.cpf = '';
-            value.image = `http://lorempixel.com/400/400/people/${this.users.length + 1}`;
-            value.user_type_id = 2;
-            this.userService.setUser(value as ReqUser).subscribe(response => {
-                let user = response['data'];
-                alert(`Usuário ${user.name} criado com sucesso!`);
-                this.form.reset();
-                this.loadUsers();
-            });
-            // if (this.syncUser(value)) {
-            //     this.form.reset();
-            //     this.countU++;
-            // }
-        }
-    }
 }

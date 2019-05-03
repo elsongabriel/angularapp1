@@ -1,47 +1,4 @@
-<button class="btn btn-dark mb-3" (click)="showUserForm = !showUserForm">Adicionar Usuário</button>
-<div *ngIf="showUserForm" class="card card-body mb-3">
-    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
-        <h5>Dados do Usuário</h5>
-        <div class="form-group">
-            <label for="name">Nome</label>
-            <input type="text" class="form-control"
-                   id="name" name="name"
-                   [(ngModel)]="user.name"
-                   [ngClass]="{'is-invalid':userName.errors && userName.touched}"
-                   #userName="ngModel"
-                   required
-                   minlength="2">
-            <div [hidden]="!userName.errors?.required" class="invalid-feedback">Nome obrigatório</div>
-            <div [hidden]="!userName.errors?.minlength" class="invalid-feedback">Nome deve possuir mais de 2
-                caracteres
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="text" class="form-control is-invalid"
-                   id="email" name="email"
-                   [(ngModel)]="user.email"
-                   [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}"
-                   #userEmail="ngModel"
-                   required
-                   pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
-            <div [hidden]="!userEmail.errors?.required" class="invalid-feedback">E-mail obrigatório</div>
-            <div [hidden]="!userEmail.errors?.pattern" class="invalid-feedback">E-mail incorreto</div>
-        </div>
-        <div class="form-group">
-            <label for="password">Senha</label>
-            <input type="password" class="form-control is-invalid"
-                   id="password" name="password"
-                   [(ngModel)]="user.password"
-                   [ngClass]="{'is-invalid':userPassword.errors && userPassword.touched}"
-                   #userPassword="ngModel"
-                   required>
-            <div [hidden]="!userPassword.errors?.required" class="invalid-feedback">Senha obrigatória</div>
-        </div>
-
-        <button [disabled]="!userForm.form.valid" class="btn btn-block btn-success mb-3 mt-3">Adicionar</button>
-    </form>
-</div>
+<app-user-form (newUser)="onNewUser()"></app-user-form>
 
 <h4 *ngIf="!loaded"><i class="fa fa-spin"></i>Carregando usuários...</h4>
 <h4 *ngIf="users?.length == 0">Nenhum usuário encontrado!</h4>
