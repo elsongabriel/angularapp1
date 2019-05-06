@@ -13,6 +13,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {UserFormComponent} from './components/user-form/user-form.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HomeComponent} from './components/home/home.component';
+import {UserdComponent} from './components/userd/userd.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import {HomeComponent} from './components/home/home.component';
         NavbarComponent,
         ReqUserComponent,
         UserFormComponent,
-        HomeComponent
+        HomeComponent,
+        UserdComponent
     ],
     imports: [
         BrowserModule,

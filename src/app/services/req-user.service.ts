@@ -46,6 +46,11 @@ export class ReqUserService {
         return this.http.get<ReqUser[]>(this.url, this.httpOptions);
     }
 
+    getUser(id: number): Observable<ReqUser> {
+        let url = `${this.url}/${id}`;
+        return this.http.get<ReqUser>(url, this.httpOptions);
+    }
+
     addUser(user: ReqUser): Observable<ReqUser> {
         return this.http.post<ReqUser>(this.url, user, this.httpOptions);
     }
