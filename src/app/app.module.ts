@@ -12,6 +12,7 @@ import {ReqUserService} from './services/req-user.service';
 import {HttpClientModule} from "@angular/common/http";
 import {UserFormComponent} from './components/user-form/user-form.component';
 import {AppRoutingModule} from './app-routing.module';
+import {HomeComponent} from './components/home/home.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import {AppRoutingModule} from './app-routing.module';
         UsersComponent,
         NavbarComponent,
         ReqUserComponent,
-        UserFormComponent
+        UserFormComponent,
+        HomeComponent
     ],
     imports: [
         BrowserModule,
