@@ -14,6 +14,7 @@ import {UserFormComponent} from './components/user-form/user-form.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HomeComponent} from './components/home/home.component';
 import {UserdComponent} from './components/userd/userd.component';
+import {NotFoundComponent} from './components/not-found/not-found.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import {UserdComponent} from './components/userd/userd.component';
         ReqUserComponent,
         UserFormComponent,
         HomeComponent,
-        UserdComponent
+        UserdComponent,
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,
