@@ -1,4 +1,6 @@
-<app-user-form [currentUser]="currentUser" [isNew]="isNew" (newUser)="onNewUser()"></app-user-form>
+<app-user-form [currentUser]="currentUser" [isNew]="isNew"
+               (newUser)="onNewUser()"
+               (updateUser)="onUpdateUser($event)"></app-user-form>
 
 <h4 *ngIf="!loaded"><i class="fa fa-spin"></i>Carregando usuários...</h4>
 <h4 *ngIf="users?.length == 0">Nenhum usuário encontrado!</h4>

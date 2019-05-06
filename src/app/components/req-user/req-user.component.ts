@@ -22,7 +22,7 @@ export class ReqUserComponent implements OnInit {
         image: null,
         registered: null
     };
-    isNew: boolean;
+    isNew: boolean = true;
 
     constructor(private userService: ReqUserService) {
     }
@@ -42,6 +42,25 @@ export class ReqUserComponent implements OnInit {
 
     onNewUser() {
         this.loadUsers();
+    }
+
+    onUpdateUser(user: ReqUser) {
+        this.loadUsers();
+        // this.users.forEach((cur, index) => {
+        //     if (user.id === cur.id) {
+        //         this.users.splice(index, 1);
+        //         this.users.unshift(user);
+        //         this.isNew = true;
+        //         this.currentUser = {
+        //             id: 0,
+        //             name: '',
+        //             email: '',
+        //             password: '',
+        //             image: null,
+        //             registered: null
+        //         };
+        //     }
+        // });
     }
 
     setCurrentStyles() {
