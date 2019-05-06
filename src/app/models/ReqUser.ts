@@ -1,4 +1,5 @@
 export interface ReqUser {
+    id?: number,
     name: string,
     email: string,
     password: string,

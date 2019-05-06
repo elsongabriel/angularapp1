@@ -14,6 +14,15 @@ export class ReqUserComponent implements OnInit {
     users: ReqUser[];
     loaded: boolean = false;
     currentStyles = {};
+    currentUser: ReqUser = {
+        id: 0,
+        name: '',
+        email: '',
+        password: '',
+        image: null,
+        registered: null
+    };
+    isNew: boolean;
 
     constructor(private userService: ReqUserService) {
     }
@@ -59,6 +68,15 @@ export class ReqUserComponent implements OnInit {
         }
         this.users = users;
         this.loaded = true;
+    }
+
+    editUser(user: ReqUser) {
+        this.isNew = false;
+        this.currentUser = user;
+    }
+
+    removeUser(userId) {
+
     }
 
     /* Old */

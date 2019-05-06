@@ -1,4 +1,4 @@
-<app-user-form (newUser)="onNewUser()"></app-user-form>
+<app-user-form [currentUser]="currentUser" [isNew]="isNew" (newUser)="onNewUser()"></app-user-form>
 
 <h4 *ngIf="!loaded"><i class="fa fa-spin"></i>Carregando usuários...</h4>
 <h4 *ngIf="users?.length == 0">Nenhum usuário encontrado!</h4>
@@ -22,6 +22,12 @@
                         <li class="list-group-item">E-mail: {{user.email}}</li>
                         <li class="list-group-item">Entrou em: {{user.registered | date:"dd/MM/yyyy"}}</li>
                     </ul>
+
+                    <br>
+                    <button (click)="editUser(user)" class="btn btn-warning"><i class="fa fa-pencil"></i>
+                    </button>
+                    <button (click)="removeUser(user.id)" class="btn btn-danger"><i class="fa fa-remove"></i>
+                    </button>
                 </div>
             </div>
         </div>

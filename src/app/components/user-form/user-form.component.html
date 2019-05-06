@@ -1,4 +1,4 @@
-<button class="btn btn-dark mb-3" (click)="showUserForm = !showUserForm">Adicionar Usuário</button>
+<button class="btn btn-dark mb-3" (click)="showUserForm = !showUserForm;">Adicionar Usuário</button>
 <div *ngIf="showUserForm" class="card card-body mb-3">
     <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
         <h5>Dados do Usuário</h5>
@@ -6,7 +6,7 @@
             <label for="name">Nome</label>
             <input type="text" class="form-control"
                    id="name" name="name"
-                   [(ngModel)]="user.name"
+                   [(ngModel)]="isNew ? user.name : currentUser.name"
                    [ngClass]="{'is-invalid':userName.errors && userName.touched}"
                    #userName="ngModel"
                    required
@@ -20,7 +20,7 @@
             <label for="email">E-mail</label>
             <input type="text" class="form-control is-invalid"
                    id="email" name="email"
-                   [(ngModel)]="user.email"
+                   [(ngModel)]="isNew ? user.email : currentUser.email"
                    [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}"
                    #userEmail="ngModel"
                    required
@@ -32,13 +32,19 @@
             <label for="password">Senha</label>
             <input type="password" class="form-control is-invalid"
                    id="password" name="password"
-                   [(ngModel)]="user.password"
+                   [(ngModel)]="isNew ? user.password : currentUser.password"
                    [ngClass]="{'is-invalid':userPassword.errors && userPassword.touched}"
                    #userPassword="ngModel"
                    required>
             <div [hidden]="!userPassword.errors?.required" class="invalid-feedback">Senha obrigatória</div>
         </div>
+        <input type="hidden" [(ngModel)]="isNew ? user.id : currentUser.id" name="id">
+        <button *ngIf="isNew" [disabled]="!userForm.form.valid" class="btn btn-block btn-success mb-3 mt-3">
+            Adicionar
+        </button>
 
-        <button [disabled]="!userForm.form.valid" class="btn btn-block btn-success mb-3 mt-3">Adicionar</button>
+        <button *ngIf="!isNew" [disabled]="!userForm.form.valid" class="btn btn-block btn-warning mb-3 mt-3">
+            Atualizar
+        </button>
     </form>
 </div>

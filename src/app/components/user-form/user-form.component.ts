@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ReqUser} from "../../models/ReqUser";
 import {ReqUserService} from "../../services/req-user.service";
 
@@ -10,6 +10,7 @@ import {ReqUserService} from "../../services/req-user.service";
 export class UserFormComponent implements OnInit {
 
     user: ReqUser = {
+        id: null,
         name: '',
         email: '',
         password: '',
@@ -17,6 +18,8 @@ export class UserFormComponent implements OnInit {
         registered: null
     };
     @Output() newUser: EventEmitter<ReqUser> = new EventEmitter();
+    @Input() currentUser: ReqUser;
+    @Input() isNew: boolean;
 
     showUserForm: boolean = false;
     @ViewChild('userForm') form: any;
@@ -31,19 +34,23 @@ export class UserFormComponent implements OnInit {
         if (!valid) {
             console.log('form not valid');
         } else {
-            value.cpf = '';
-            // value.image = `http://lorempixel.com/400/400/people/${this.users.length + 1}`;
-            value.user_type_id = 2;
-            this.userService.setUser(value as ReqUser).subscribe(response => {
-                let user = response['data'];
-                alert(`Usuário ${user.name} criado com sucesso!`);
-                this.form.reset();
-                this.newUser.emit(user);
-            });
-            // if (this.syncUser(value)) {
-            //     this.form.reset();
-            //     this.countU++;
-            // }
+            if (this.isNew) {
+                value.cpf = '';
+                value.image = `http://lorempixel.com/400/400/people/${Math.random() * (100 - 1) + 1}`;
+                value.user_type_id = 2;
+                this.userService.setUser(value as ReqUser).subscribe(response => {
+                    let user = response['data'];
+                    alert(`Usuário ${user.name} criado com sucesso!`);
+                    this.form.reset();
+                    this.newUser.emit(user);
+                });
+                // if (this.syncUser(value)) {
+                //     this.form.reset();
+                //     this.countU++;
+                // }
+            } else {
+                console.log('att');
+            }
         }
     }
 }
