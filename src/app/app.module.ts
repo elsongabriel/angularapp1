@@ -11,6 +11,7 @@ import {ReqUserComponent} from './components/req-user/req-user.component';
 import {ReqUserService} from './services/req-user.service';
 import {HttpClientModule} from "@angular/common/http";
 import {UserFormComponent} from './components/user-form/user-form.component';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import {UserFormComponent} from './components/user-form/user-form.component';
     imports: [
         BrowserModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        AppRoutingModule
     ],
     providers: [ReqUserService /*DataService*/],
     bootstrap: [AppComponent]
