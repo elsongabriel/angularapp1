@@ -54,4 +54,9 @@ export class ReqUserService {
         let url = `${this.url}/${user.id}`;
         return this.http.put<ReqUser>(url, user, this.httpOptions);
     }
+
+    removeUser(userId): Observable<ReqUser> {
+        let url = `${this.url}/${userId}`;
+        return this.http.delete<ReqUser>(url, this.httpOptions);
+    }
 }

@@ -95,7 +95,11 @@ export class ReqUserComponent implements OnInit {
     }
 
     removeUser(userId) {
-
+        if (confirm("Você tem certeza que deseja remover este usuário?")) {
+            this.userService.removeUser(userId).subscribe(() => {
+                this.loadUsers();
+            });
+        }
     }
 
     /* Old */
